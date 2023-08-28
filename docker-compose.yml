@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - todonetwork
+  django:
+    build: ./django-backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django-backend:/app/django-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+    networks:
+      - todonetwork
+  react:
+    build: ./react-frontend
+    command: ["npm", "start"]
+    volumes:
+      - ./react-frontend:/app/react-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - todonetwork

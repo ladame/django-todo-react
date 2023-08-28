@@ -1,1 +1,4 @@
 todoenv/*
+
+/backend/todo/__pycache__/*.*.pyc
+/backend/todo/migrations/*

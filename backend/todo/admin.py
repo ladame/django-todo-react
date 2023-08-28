@@ -4,7 +4,7 @@ from .models import Todo
 # root/root
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'gambaran', 'completed')
+    list_display = ('title', 'description', 'completed')
 
 # Register your models here.
 
